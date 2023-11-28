@@ -10,7 +10,7 @@ import { Icons } from "@/components/icons";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
 
 export function ThemeSwitch() {
@@ -40,11 +40,24 @@ export function ThemeSwitch() {
   }
 
   return (
+    <button
+      onClick={changeTheme}
+      className="p-2 opacity-50 transition duration-100 hover:opacity-100 text-gray-900 dark:text-slate-100"
+    >
+      {match(theme)
+        .with("light", () => <Sun className="w-4 h-4" />)
+        .with("dark", () => <Moon className="w-4 h-4" />)
+        .otherwise(() => (
+          <Icons.adjust />
+        ))}
+    </button>
+  );
+  return (
     <Tooltip>
       <TooltipTrigger asChild>
         <button
           onClick={changeTheme}
-          className="p-2 opacity-50 transition duration-100 hover:opacity-100"
+          className="p-2 opacity-50 transition duration-100 hover:opacity-100 text-gray-900 dark:text-slate-100"
         >
           {match(theme)
             .with("light", () => <Sun className="w-4 h-4" />)

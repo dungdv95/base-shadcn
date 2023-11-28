@@ -147,7 +147,7 @@ function Header() {
   const isExpanded = useStore(isExpandedSelector);
 
   return (
-    <div className="flex flex-wrap items-center bg-gradient-to-r from-blue-550 to-blue-650 text-white">
+    <div className="flex flex-wrap items-center bg-gradient-to-r from-slate-200 to-slate-100 dark:from-gray-700 dark:to-gray-900 text-white">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-2">
           <Link
@@ -172,13 +172,15 @@ function Header() {
           <Tooltip>
             <TooltipTrigger asChild>
               <button
-                className="inline-block appearance-none border-0 cursor-pointer p-2 opacity-50 transition duration-100 hover:opacity-100"
+                className="inline-block appearance-none border-0 cursor-pointer p-2 opacity-50 transition duration-100 hover:opacity-100 text-gray-900 dark:text-slate-100"
                 onClick={() => useStore.getState().setIsExpanded(!isExpanded)}
               >
                 {isExpanded ? <Icons.collapse /> : <Icons.expand />}
               </button>
             </TooltipTrigger>
-            <TooltipContent>Toggle sidebar</TooltipContent>
+            <TooltipContent>
+              {isExpanded ? "Thu gọn" : "Mở rộng"}
+            </TooltipContent>
           </Tooltip>
         </div>
       </div>
