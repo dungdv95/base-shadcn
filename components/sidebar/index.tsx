@@ -27,7 +27,7 @@ import { Permission, useLoginStore } from "@/app/sign-in/store";
 import { Button } from "../ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-const SMALL_WIDTH = 42;
+const SMALL_WIDTH = 58;
 
 const activeClassnames = `
   [&.active]:opacity-100
@@ -118,7 +118,7 @@ function Container({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className={cn("relative z-[9999] ", transitionClasses)}
+      className={cn("relative z-[9999]", transitionClasses)}
       style={{ width: isExpanded ? width : SMALL_WIDTH }}
       ref={hoverRef as any}
     >
@@ -153,12 +153,18 @@ function Header() {
           <Link
             href="/"
             className={cn(
-              "flex items-center justify-center",
+              "flex items-center justify-center min-w-[150px]",
               transitionClasses
             )}
             style={{ padding: isOpen ? "10px" : "8px" }}
           >
-            <Icons.logo />
+            <Image
+              src="/asset/logo.png"
+              className=""
+              alt=""
+              width={400}
+              height={400}
+            />
           </Link>
         </div>
         <div className="flex items-center pr-2">
@@ -228,36 +234,15 @@ function MainMenuGroup({ group }: { group: SidebarGroup }) {
     </div>
   );
 }
-const useHasPermission = (
-  functionCode: string | undefined,
-  permissions: Permission[]
-) => {
-  const role = useLoginStore((a) => a.user.role);
-  if (!functionCode) return true;
-  if (role === "admin") return true;
-  return permissions?.find((item) => item.code == functionCode);
-};
+
 function MainMenuItem({ item }: { item: SidebarItem }) {
   const isOpen = useStore(isOpenSelector);
   const transitionClasses = useStore(transitionClassesSelector);
   const pathname = usePathname();
   const active = pathname === item.url;
-  const isAdmin = useLoginStore((a) => a.user.role == "admin");
-  const permissions = useLoginStore((a) => a.permissions);
-  const hasPermission = useHasPermission(item.code, permissions);
-  const [hidden, setHideen] = useState<boolean>(false);
 
-  useEffect(() => {
-    setHideen(
-      ((!isAdmin && item.checkPermision) || !hasPermission) &&
-        item.code !== "DASHBOARD"
-    );
-  }, [permissions, isAdmin]);
   return (
-    <div
-      key={item.label}
-      className={cn("w-full", transitionClasses, hidden && "hidden")}
-    >
+    <div key={item.label} className={cn("w-full", transitionClasses)}>
       <Link
         href={item.url}
         className={cn(
@@ -341,7 +326,7 @@ function Profile() {
         className={cn(
           "flex gap-2 justify-between	",
           transitionClasses,
-          isOpen ? "p-2" : "p-2 pr-6 pl-[3px]"
+          isOpen ? "p-2" : "p-2 pr-6 pl-[6px]"
         )}
       >
         <div className="flex">
@@ -349,8 +334,8 @@ function Profile() {
             <Icons.user />
           </div>
           <div>
-            {isOpen && <div className="text-sm font-bold">{user.username}</div>}
-            {isOpen && <div className="text-xs italic">{user.email}</div>}
+            {isOpen && <div className="text-sm font-bold">name</div>}
+            {isOpen && <div className="text-xs italic">email</div>}
           </div>
         </div>
         <div
