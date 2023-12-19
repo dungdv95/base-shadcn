@@ -1,5 +1,4 @@
 "use client";
-import LoadingPV from "./LoadingPV";
 import { create } from "zustand";
 
 interface State {
@@ -22,9 +21,7 @@ export function LoadingGlobal() {
   return (
     <>
       <div className="fixed inset-0 z-[100] bg-background/80"></div>
-      <div className="fixed w-full h-full z-[1000]">
-        <LoadingPV />
-      </div>
+      <div className="fixed w-full h-full z-[1000]">Loading...</div>
     </>
   );
 }
